@@ -23,7 +23,7 @@ $ npm start
 ```
 
 | Action                                   | Usage               |
-| ---------------------------------------- | ------------------- |
+|------------------------------------------|---------------------|
 | Starting development mode                | `npm start`         |
 | Linting code                             | `npm run lint`      |
 | Running unit tests                       | `npm run jest`      |
@@ -38,3 +38,4 @@ Gabriel Santos
 ## License
 
 [license-url]: https://opensource.org/licenses/MIT
+[license-badge]: https://img.shields.io/badge/License-MIT-yellow.svg
