@@ -1,0 +1,13 @@
+{
+    "seq": {
+        "server_url": "SEQ URL",
+        "api_key": "SEQ API KEY"
+    },
+    "api": {
+        "base_path": "/api/v1",
+        "swagger_path": "/"
+    },
+    "detran": {
+        "base_url": "http://licenciamento.ba.gov.br/sli"
+    }
+}

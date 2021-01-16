@@ -1,0 +1,50 @@
+{
+    "name": "jrdespachante-api",
+    "version": "1.0.0",
+    "description": "Junior Despachante&#39;s office API",
+    "author": "Gabriel Santos <gabrielrsantoss@icloud.com>",
+    "keywords": [
+        "node"
+    ],
+    "main": "src/server.js",
+    "files": [
+        "src"
+    ],
+    "scripts": {
+        "coverage": "jest --colors --coverage",
+        "jest": "jest --colors --verbose",
+        "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls",
+        "lint": "eslint 'src/**/*.js' 'test/**/*.js'",
+        "start": "node src/server.js",
+        "test": "npm run lint && npm run jest"
+    },
+    "dependencies": {
+        "axios": "^0.21.1",
+        "bunyan": "^1.8.12",
+        "bunyan-seq": "^0.4.0",
+        "express": "^4.17.1",
+        "express-async-errors": "^3.1.1",
+        "express-mung": "^0.5.1",
+        "express-unless": "^0.5.0",
+        "http-status-codes": "^1.4.0",
+        "jsdom": "^16.4.0",
+        "swagger-jsdoc": "^4.0.0",
+        "swagger-ui-express": "^4.1.4",
+        "yup": "^0.28.4"
+    },
+    "devDependencies": {
+        "@types/jest": "^24.0.12",
+        "coveralls": "^3.0.13",
+        "eslint": "^5.16.0",
+        "eslint-config-airbnb": "^18.1.0",
+        "eslint-config-airbnb-base": "^13.1.0",
+        "eslint-config-prettier": "^4.2.0",
+        "eslint-plugin-import": "^2.17.2",
+        "eslint-plugin-prettier": "^3.0.1",
+        "jest": "^24.9.0",
+        "prettier": "^1.17.0",
+        "superagent": "^5.2.2",
+        "supertest": "^4.0.2"
+    },
+    "license": "MIT"
+}
