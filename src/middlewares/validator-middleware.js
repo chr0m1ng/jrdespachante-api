@@ -1,6 +1,6 @@
-const { BadRequestError } = require('../models/errors');
-const { getRoutes } = require('../routes/routes');
-const config = require('../config');
+import { BadRequestError } from '../models/errors';
+import getRoutes from '../routes/routes';
+import config from '../appsettings.json';
 
 const routes = getRoutes();
 
@@ -34,4 +34,4 @@ const validateReqBody = (req, _, next) => {
     return next();
 };
 
-module.exports = validateReqBody;
+export default validateReqBody;

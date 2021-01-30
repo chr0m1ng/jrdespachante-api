@@ -1,4 +1,4 @@
-const { NO_CONTENT } = require('http-status-codes');
+import { NO_CONTENT } from 'http-status-codes';
 
 class NoContentError extends Error {
     constructor(message) {
@@ -7,4 +7,4 @@ class NoContentError extends Error {
     }
 }
 
-module.exports = NoContentError;
+export default NoContentError;

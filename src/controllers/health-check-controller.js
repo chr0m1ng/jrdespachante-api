@@ -4,4 +4,4 @@ class HealthCheckController {
     }
 }
 
-module.exports = new HealthCheckController();
+export default new HealthCheckController();

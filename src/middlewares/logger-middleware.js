@@ -1,5 +1,5 @@
-const unless = require('express-unless');
-const logger = require('../providers/logger-provider');
+import unless from 'express-unless';
+import logger from '../providers/logger-provider';
 
 const UNLESS_PATHS = ['.js', '.css', '.html', '.png', 'swagger'];
 
@@ -63,4 +63,4 @@ const responseLogger = (req, res, next) => {
 requestLogger.unless = unless;
 responseLogger.unless = unless;
 
-module.exports = { requestLogger, responseLogger, shouldNotLogPath };
+export { requestLogger, responseLogger, shouldNotLogPath };

@@ -1,8 +1,8 @@
-const mung = require('express-mung');
+import mung from 'express-mung';
 
 const addBodyToRes = (body, _, res) => {
     res.body = body;
     return body;
 };
 
-module.exports = mung.json(addBodyToRes);
+export default mung.json(addBodyToRes);

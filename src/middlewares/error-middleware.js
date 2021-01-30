@@ -1,5 +1,5 @@
-const { INTERNAL_SERVER_ERROR } = require('http-status-codes');
-const logger = require('../providers/logger-provider');
+import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
+import logger from '../providers/logger-provider';
 
 const logError = (err, req, res) => {
     const log_res = {
@@ -50,4 +50,4 @@ const encapsuleRoute = (err, req, res, next) => {
     return res.status(error_res.status).send(error_res.message);
 };
 
-module.exports = encapsuleRoute;
+export default encapsuleRoute;

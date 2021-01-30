@@ -1,6 +1,6 @@
-const { constants } = require('http2');
-const Route = require('../models/route');
-const healthCheckController = require('../controllers/health-check-controller');
+import { constants } from 'http2';
+import Route from '../models/route';
+import healthCheckController from '../controllers/health-check-controller';
 
 const routes = [];
 
@@ -20,4 +20,4 @@ routes.push(
     new Route('/ping', constants.HTTP2_METHOD_GET, healthCheckController.ping)
 );
 
-module.exports = routes;
+export default routes;

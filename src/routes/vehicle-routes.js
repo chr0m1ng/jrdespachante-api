@@ -1,6 +1,6 @@
-const { constants } = require('http2');
-const Route = require('../models/route');
-const vehicleController = require('../controllers/vehicle-controller');
+import { constants } from 'http2';
+import Route from '../models/route';
+import vehicleController from '../controllers/vehicle-controller';
 
 const routes = [];
 
@@ -85,4 +85,4 @@ routes.push(
     )
 );
 
-module.exports = routes;
+export default routes;

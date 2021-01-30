@@ -1,15 +1,14 @@
-const axios = require('axios');
-const qs = require('querystring');
-const {
-    detran: { base_url }
-} = require('../config');
-const logger = require('../providers/logger-provider');
+import axios from 'axios';
+import qs from 'querystring';
+import { detran } from '../appsettings.json';
+import logger from '../providers/logger-provider';
 
 const SEARCH_METHOD = 'pesquisar';
 const TOKEN_KEY = 'set-cookie';
+const BASE_URL = detran.base_url;
 
 const getVehicleAuthTokenAsync = async (plate) => {
-    const url = `${base_url}/contingencia.do`;
+    const url = `${BASE_URL}/contingencia.do`;
     const params = {
         placa: plate,
         method: SEARCH_METHOD
@@ -23,7 +22,7 @@ const getVehicleAuthTokenAsync = async (plate) => {
 };
 
 const fetchVehicleEndpointAsync = async (endpoint, token) => {
-    const url = `${base_url}/${endpoint}`;
+    const url = `${BASE_URL}/${endpoint}`;
     const headers = {
         Cookie: token
     };
@@ -45,7 +44,7 @@ const getVehicleIpvaBillAsync = (token) =>
 const getVehicleTrafficTicketsAsync = (token) =>
     fetchVehicleEndpointAsync('multasObrigatoriasOpcionais.do', token);
 
-module.exports = {
+export {
     getVehicleAuthTokenAsync,
     getVehicleRegistrationBillAsync,
     getVehicleIpvaBillAsync,

@@ -1,4 +1,4 @@
-const vehicle = require('../facades/vehicle-facade');
+import * as vehicle from '../facades/vehicle-facade';
 
 class VehicleController {
     static async execMethodWithPlateAuthAsync(methodAsync, req, res) {
@@ -32,4 +32,4 @@ class VehicleController {
     }
 }
 
-module.exports = new VehicleController();
+export default new VehicleController();

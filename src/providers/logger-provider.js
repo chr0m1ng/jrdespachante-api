@@ -1,7 +1,7 @@
-const bunyan = require('bunyan');
-const { createStream } = require('bunyan-seq');
-const package_info = require('../../package.json');
-const { seq } = require('../config');
+import bunyan from 'bunyan';
+import { createStream } from 'bunyan-seq';
+import package_info from '../../package.json';
+import { seq } from '../appsettings.json';
 
 let instance = null;
 
@@ -42,4 +42,4 @@ class LoggerProvider {
     }
 }
 
-module.exports = new LoggerProvider().getLogger();
+export default new LoggerProvider().getLogger();

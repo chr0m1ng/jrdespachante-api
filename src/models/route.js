@@ -8,4 +8,4 @@ class Route {
     }
 }
 
-module.exports = Route;
+export default Route;

@@ -1,5 +1,5 @@
-const { JSDOM } = require('jsdom');
-const detran = require('../services/detran-service');
+import { JSDOM } from 'jsdom';
+import * as detran from '../services/detran-service';
 
 const NAME_QS = 'td .grid_interno';
 const VALUE_QS = 'td .grid_interno2';
@@ -71,7 +71,7 @@ const getVehicleTrafficTicketsAsync = async (plate) =>
 const getVehicleIpvaBillAsync = async (plate) =>
     fetchVehicleDataAsync(plate, detran.getVehicleIpvaBillAsync);
 
-module.exports = {
+export {
     getVehicleRegistrationBillAsync,
     getVehicleTrafficTicketsAsync,
     getVehicleIpvaBillAsync

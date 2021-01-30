@@ -1,4 +1,4 @@
-const BadRequestError = require('./bad-request-error');
-const NoContentError = require('./no-content-error');
+import BadRequestError from './bad-request-error';
+import NoContentError from './no-content-error';
 
-module.exports = { BadRequestError, NoContentError };
+export { BadRequestError, NoContentError };

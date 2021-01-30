@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable import/no-dynamic-require */
-const fs = require('fs');
+import { readdirSync } from 'fs';
 
 const ROUTES_PATH = './src/routes';
 const ROUTES_SUFFIX = '-routes.js';
@@ -13,16 +13,16 @@ const getRoutes = () => {
         return routes;
     }
 
-    const files = fs.readdirSync(ROUTES_PATH);
+    const files = readdirSync(ROUTES_PATH);
     const routes_files = files.filter((f) => f.includes(ROUTES_SUFFIX));
 
     routes = routes_files.reduce((acc, routes_file) => {
         const file_path = `./${routes_file}`;
-        const file_routes = require(file_path);
+        const { default: file_routes } = require(file_path);
         return [...acc, ...file_routes];
     }, []);
 
     return routes;
 };
 
-module.exports = { getRoutes };
+export default getRoutes;

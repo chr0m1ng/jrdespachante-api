@@ -1,21 +1,23 @@
 /* eslint-disable import/no-unresolved */
-const swagger_ui = require('swagger-ui-express');
-const swaggerJsDoc = require('swagger-jsdoc');
-const express = require('express');
-require('express-async-errors');
+import swagger_ui from 'swagger-ui-express';
+import swaggerJsDoc from 'swagger-jsdoc';
+import express from 'express';
 
-const package_info = require('../package.json');
-const config = require('./config');
-const router = require('./routes');
-const logger = require('./providers/logger-provider');
-const resBodyMiddleware = require('./middlewares/res-body-middleware');
-const errorMiddleware = require('./middlewares/error-middleware');
-const validatorMiddleware = require('./middlewares/validator-middleware');
-const {
+import 'express-async-errors';
+
+import package_info from '../package.json';
+import config from './appsettings.json';
+import router from './routes';
+import logger from './providers/logger-provider';
+import resBodyMiddleware from './middlewares/res-body-middleware';
+import errorMiddleware from './middlewares/error-middleware';
+import validatorMiddleware from './middlewares/validator-middleware';
+
+import {
     requestLogger,
     responseLogger,
     shouldNotLogPath
-} = require('./middlewares/logger-middleware');
+} from './middlewares/logger-middleware';
 
 const ROUTES_PATH = './src/routes/*.js';
 const DEFAULT_PORT = 3333;
@@ -87,4 +89,4 @@ class App {
     }
 }
 
-module.exports = App;
+export default App;
