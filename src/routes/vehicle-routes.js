@@ -1,6 +1,7 @@
 import { constants } from 'http2';
 import Route from '../models/route';
 import vehicleController from '../controllers/vehicle-controller';
+import { plate_query_schema } from '../validators/vehicle-validators';
 
 const routes = [];
 
@@ -27,7 +28,8 @@ routes.push(
     new Route(
         '/vehicle/registration',
         constants.HTTP2_METHOD_GET,
-        vehicleController.getVehicleRegistrationAsync
+        vehicleController.getVehicleRegistrationAsync,
+        { query: plate_query_schema }
     )
 );
 
@@ -54,7 +56,8 @@ routes.push(
     new Route(
         '/vehicle/traffic-tickets',
         constants.HTTP2_METHOD_GET,
-        vehicleController.getVehicleTrafficTicketsAsync
+        vehicleController.getVehicleTrafficTicketsAsync,
+        { query: plate_query_schema }
     )
 );
 
@@ -81,7 +84,8 @@ routes.push(
     new Route(
         '/vehicle/ipva',
         constants.HTTP2_METHOD_GET,
-        vehicleController.getVehicleIpvaBillAsync
+        vehicleController.getVehicleIpvaBillAsync,
+        { query: plate_query_schema }
     )
 );
 
