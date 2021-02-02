@@ -15,7 +15,8 @@
         "jest": "jest --colors --verbose",
         "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls",
         "lint": "eslint 'src/**/*.js' 'test/**/*.js'",
-        "start": "nodemon src/index.js",
+        "start": "node src/index.js",
+        "dev": "nodemon src/index.js",
         "test": "npm run lint && npm run jest"
     },
     "dependencies": {
