@@ -1,11 +1,12 @@
 import axios from 'axios';
 import qs from 'querystring';
 import { detran } from '../appsettings.json';
-import logger from '../providers/logger-provider';
+import { NoContentError } from '../models/errors';
 
 const SEARCH_METHOD = 'pesquisar';
 const TOKEN_KEY = 'set-cookie';
 const BASE_URL = detran.base_url;
+const INVALID_VEHICLE_MARK = 'Ve�culo n�o encontrado';
 
 const getVehicleAuthTokenAsync = async (plate) => {
     const url = `${BASE_URL}/contingencia.do`;
@@ -16,7 +17,9 @@ const getVehicleAuthTokenAsync = async (plate) => {
 
     const auth_res = await axios.post(url, qs.stringify(params));
 
-    logger.debug(auth_res);
+    if (auth_res.data.includes(INVALID_VEHICLE_MARK)) {
+        throw new NoContentError('Vehicle not found');
+    }
 
     return auth_res.headers[TOKEN_KEY];
 };

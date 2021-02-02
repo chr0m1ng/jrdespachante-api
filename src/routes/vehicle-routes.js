@@ -21,6 +21,8 @@ const routes = [];
  *     responses:
  *       200:
  *         description: "Ok"
+ *       204:
+ *         description: "Vehicle not found"
  *       400:
  *         description: "Bad Request"
  */
@@ -49,6 +51,8 @@ routes.push(
  *     responses:
  *       200:
  *         description: "Ok"
+ *       204:
+ *         description: "Vehicle not found"
  *       400:
  *         description: "Bad Request"
  */
@@ -77,6 +81,8 @@ routes.push(
  *     responses:
  *       200:
  *         description: "Ok"
+ *       204:
+ *         description: "Vehicle not found"
  *       400:
  *         description: "Bad Request"
  */
