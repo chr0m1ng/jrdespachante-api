@@ -1,1 +1,1 @@
-web: node --debug src/index.js
+web: npm start

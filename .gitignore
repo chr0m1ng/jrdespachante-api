@@ -86,3 +86,5 @@ typings/
 # yo
 .yo-repository/
 .yo-rc.json
+
+.vscode
