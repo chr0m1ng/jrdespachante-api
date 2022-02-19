@@ -5,6 +5,7 @@ import express from 'express';
 
 import 'express-async-errors';
 
+import timeout from 'connect-timeout';
 import package_info from '../package.json';
 import config from './appsettings.json';
 import router from './routes';
@@ -44,6 +45,7 @@ class App {
 
     setupPreRoutesMiddlewares() {
         this.app.disable(ETAG);
+        this.app.use(timeout('5s'));
         this.app.use(express.json());
         this.app.use(resBodyMiddleware);
         this.app.use(requestLogger.unless(shouldNotLogPath));
