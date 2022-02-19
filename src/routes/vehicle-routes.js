@@ -16,8 +16,14 @@ const routes = [];
  *     parameters:
  *     - in: "query"
  *       name: "plate"
+ *       type: string
  *       description: "The plate to lookup"
  *       required: true
+ *     - in: "query"
+ *       name: "include_all_tickets"
+ *       type: boolean
+ *       description: "The plate to lookup"
+ *       required: false
  *     responses:
  *       200:
  *         description: "Ok"

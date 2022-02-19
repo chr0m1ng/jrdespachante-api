@@ -52,7 +52,7 @@ const fetchVehicleDataAsync = async (plate, methodAsync) => {
         window: { document }
     } = new JSDOM(html_res);
 
-    const data = await getVehicleSearchDataTable(document);
+    const data = getVehicleSearchDataTable(document);
     const vehicle = getVehicleRegistrationData(document);
     vehicle.plate = plate.toUpperCase();
 
@@ -62,11 +62,23 @@ const fetchVehicleDataAsync = async (plate, methodAsync) => {
     };
 };
 
-const getVehicleRegistrationBillAsync = async (plate) =>
-    fetchVehicleDataAsync(plate, detran.getVehicleRegistrationBillAsync);
-
 const getVehicleTrafficTicketsAsync = async (plate) =>
     fetchVehicleDataAsync(plate, detran.getVehicleTrafficTicketsAsync);
+
+const getVehicleRegistrationBillAsync = async (plate, include_all_tickets) => {
+    const registration_bill = await fetchVehicleDataAsync(
+        plate,
+        detran.getVehicleRegistrationBillAsync
+    );
+
+    let tickets = {};
+    if (include_all_tickets) {
+        const { data } = await getVehicleTrafficTicketsAsync(plate);
+        tickets = data;
+    }
+    registration_bill.data = { ...tickets, ...registration_bill.data };
+    return registration_bill;
+};
 
 const getVehicleIpvaBillAsync = async (plate) =>
     fetchVehicleDataAsync(plate, detran.getVehicleIpvaBillAsync);
