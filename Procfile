@@ -1,0 +1,1 @@
+web: node --debug src/index.js
