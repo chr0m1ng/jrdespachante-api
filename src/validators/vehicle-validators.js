@@ -8,4 +8,8 @@ const plate_query_schema = yup.object().shape({
         .required()
 });
 
-export { plate_query_schema };
+const registration_query_schema = plate_query_schema.shape({
+    include_all_tickets: yup.boolean().notRequired()
+});
+
+export { plate_query_schema, registration_query_schema };

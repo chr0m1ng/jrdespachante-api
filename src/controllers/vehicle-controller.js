@@ -12,7 +12,7 @@ class VehicleController {
     async getVehicleRegistrationAsync(req, res) {
         const { include_all_tickets } = req.query;
         const should_include_all_tickets = include_all_tickets
-            ? JSON.parse(include_all_tickets)
+            ? JSON.parse(include_all_tickets.toLowerCase())
             : false;
         return VehicleController.execMethodWithPlateAuthAsync(
             (plate) =>

@@ -1,7 +1,10 @@
 import { constants } from 'http2';
 import Route from '../models/route';
 import vehicleController from '../controllers/vehicle-controller';
-import { plate_query_schema } from '../validators/vehicle-validators';
+import {
+    plate_query_schema,
+    registration_query_schema
+} from '../validators/vehicle-validators';
 
 const routes = [];
 
@@ -37,7 +40,7 @@ routes.push(
         '/vehicle/registration',
         constants.HTTP2_METHOD_GET,
         vehicleController.getVehicleRegistrationAsync,
-        { query: plate_query_schema }
+        { query: registration_query_schema }
     )
 );
 
