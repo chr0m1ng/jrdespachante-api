@@ -1,17 +1,18 @@
-FROM node:13-alpine
+FROM node:16-alpine
+
+RUN corepack enable
 
 RUN apk --no-cache add --virtual native-deps \
     g++ gcc libgcc libstdc++ linux-headers autoconf automake make nasm python git && \
-    npm install --quiet node-gyp -g
+    yarn global add --silent node-gyp
 
 RUN [ "mkdir", "/app"]
 
 WORKDIR /app
 
 COPY package.json .
-COPY package-lock.json .
 
-RUN npm install
+RUN [ "yarn" ]
 
 COPY . .
 
@@ -19,6 +20,6 @@ ENV PORT=80
 
 EXPOSE 80
 
-ENTRYPOINT [ "npm" ]
+ENTRYPOINT [ "yarn" ]
 
-CMD ["start"]
+CMD [ "start" ]
