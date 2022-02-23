@@ -19,4 +19,3 @@ EXPOSE 80
 ENTRYPOINT [ "yarn" ]
 
 CMD [ "start" ]
-
