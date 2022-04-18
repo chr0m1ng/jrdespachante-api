@@ -56,6 +56,7 @@ class App {
     setupPosRoutesMiddlewares() {
         this.setupSwagger();
         this.app.use(errorMiddleware);
+        this.app.set('trust proxy', 1);
     }
 
     setupSwagger() {
