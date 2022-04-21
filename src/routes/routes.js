@@ -3,7 +3,7 @@
 /* eslint-disable import/no-dynamic-require */
 import { readdirSync } from 'fs';
 
-const ROUTES_PATH = './src/routes';
+const ROUTES_PATH = 'src/routes';
 const ROUTES_SUFFIX = '-routes.js';
 
 let routes = null;
@@ -14,6 +14,7 @@ const getRoutes = () => {
     }
 
     const files = readdirSync(ROUTES_PATH);
+    console.log(files);
     const routes_files = files.filter((f) => f.includes(ROUTES_SUFFIX));
 
     routes = routes_files.reduce((acc, routes_file) => {
