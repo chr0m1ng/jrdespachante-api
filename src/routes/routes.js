@@ -3,7 +3,9 @@
 /* eslint-disable import/no-dynamic-require */
 import { readdirSync } from 'fs';
 
-const ROUTES_PATH = 'src/routes';
+const ROUTES_PATH = process.env.IS_PRODUCTION
+    ? 'C:\\home\\site\\wwwroot\\src\\routes'
+    : 'src/routes';
 const ROUTES_SUFFIX = '-routes.js';
 
 let routes = null;
