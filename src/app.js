@@ -10,6 +10,7 @@ import package_info from '../package.json';
 import config from './appsettings.json';
 import router from './routes';
 import logger from './providers/logger-provider';
+import database from './providers/database-provider';
 import resBodyMiddleware from './middlewares/res-body-middleware';
 import errorMiddleware from './middlewares/error-middleware';
 import validatorMiddleware from './middlewares/validator-middleware';
@@ -34,6 +35,7 @@ class App {
 
     async build() {
         this.setupLogger();
+        await this.setupDatabaseAsync();
         this.setupPreRoutesMiddlewares();
         this.setupRoutes();
         this.setupPosRoutesMiddlewares();
@@ -81,6 +83,10 @@ class App {
         );
     }
 
+    async setupDatabaseAsync() {
+        this.database = await database.getDatabaseAsync();
+    }
+
     setupRoutes() {
         this.app.use(config.api.base_path, router);
     }
@@ -91,6 +97,7 @@ class App {
 
     async stopApp() {
         this.logger.info('Stoping the server');
+        await database.closeDatabaseAsync();
     }
 }
 
