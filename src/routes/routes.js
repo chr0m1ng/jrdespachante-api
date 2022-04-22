@@ -16,7 +16,6 @@ const getRoutes = () => {
     }
 
     const files = readdirSync(ROUTES_PATH);
-    console.log(files);
     const routes_files = files.filter((f) => f.includes(ROUTES_SUFFIX));
 
     routes = routes_files.reduce((acc, routes_file) => {

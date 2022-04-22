@@ -20,7 +20,9 @@ import {
     shouldNotLogPath
 } from './middlewares/logger-middleware';
 
-const ROUTES_PATH = './src/routes/*.js';
+const ROUTES_PATH = process.env.IS_PRODUCTION
+    ? 'C:\\home\\site\\wwwroot\\src\\routes\\*.js'
+    : './src/routes/*.js';
 const DEFAULT_PORT = 3333;
 const PORT = process.env.PORT || DEFAULT_PORT;
 const ETAG = 'etag';
