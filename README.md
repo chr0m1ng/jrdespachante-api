@@ -13,23 +13,23 @@ Long description.
 Just install the dependencies:
 
 ```bash
-$ npm install
+$ yarn
 ```
 
 Then:
 
 ```bash
-$ npm start
+$ yarn start
 ```
 
-| Action                                   | Usage               |
-|------------------------------------------|---------------------|
-| Starting development mode                | `npm start`         |
-| Linting code                             | `npm run lint`      |
-| Running unit tests                       | `npm run jest`      |
-| Running lint + tests                     | `npm test`          |
-| Running code coverage                    | `npm run coverage`  |
-| Sending coverage results to Coveralls.io | `npm run coveralls` |
+| Action                                   | Usage            |
+|------------------------------------------|------------------|
+| Starting development mode                | `yarn dev`       |
+| Linting code                             | `yarn lint`      |
+| Running unit tests                       | `yarn jest`      |
+| Running lint + tests                     | `yarn test`      |
+| Running code coverage                    | `yarn coverage`  |
+| Sending coverage results to Coveralls.io | `yarn coveralls` |
 
 ## Author
 
