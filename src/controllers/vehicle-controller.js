@@ -1,45 +1,67 @@
-import * as vehicle from '../facades/vehicle-facade';
-import { platePreprocessor } from '../preprocessors/vehicle-preprocessors';
+// eslint-disable-next-line no-unused-vars
+import { Db } from 'mongodb';
+import VehicleFacade from '../facades/vehicle-facade.js';
+import UserFacade from '../facades/user-facade.js';
+import VehiclePreProcessors from '../preprocessors/vehicle-preprocessors.js';
 
 class VehicleController {
-    static async execMethodWithPlateAuthAsync(methodAsync, req, res) {
-        const { plate } = req.query;
-        const clean_plate = platePreprocessor(plate);
-        const method_res = await methodAsync(clean_plate);
-        return res.send(method_res);
+    /**
+     * Vehicle Controller
+     * @param {Db} database
+     */
+    constructor(database) {
+        this.database = database;
+        this.user_facade = new UserFacade(database);
+        this.vehicle_facade = new VehicleFacade();
     }
 
-    async getVehicleRegistrationAsync(req, res) {
+    execMethodWithPlateAuthAsync = async (methodAsync, req, res) => {
+        const { provider, provider_id } = req.headers;
+
+        const { plate } = req.query;
+        const clean_plate = VehiclePreProcessors.platePreprocessor(plate);
+
+        await this.user_facade.addUserPlateHistoryAsync(
+            provider,
+            provider_id,
+            plate
+        );
+
+        const method_res = await methodAsync(clean_plate);
+        return res.send(method_res);
+    };
+
+    getVehicleRegistrationAsync = async (req, res) => {
         const { include_all_tickets } = req.query;
         const should_include_all_tickets = include_all_tickets
             ? JSON.parse(include_all_tickets.toLowerCase())
             : false;
-        return VehicleController.execMethodWithPlateAuthAsync(
+        return this.execMethodWithPlateAuthAsync(
             (plate) =>
-                vehicle.getVehicleRegistrationBillAsync(
+                this.vehicle_facade.getVehicleRegistrationBillAsync(
                     plate,
                     should_include_all_tickets
                 ),
             req,
             res
         );
-    }
+    };
 
-    async getVehicleTrafficTicketsAsync(req, res) {
-        return VehicleController.execMethodWithPlateAuthAsync(
-            vehicle.getVehicleTrafficTicketsAsync,
+    getVehicleTrafficTicketsAsync = async (req, res) => {
+        return this.execMethodWithPlateAuthAsync(
+            this.vehicle_facade.getVehicleTrafficTicketsAsync,
             req,
             res
         );
-    }
+    };
 
-    async getVehicleIpvaBillAsync(req, res) {
-        return VehicleController.execMethodWithPlateAuthAsync(
-            vehicle.getVehicleIpvaBillAsync,
+    getVehicleIpvaBillAsync = async (req, res) => {
+        return this.execMethodWithPlateAuthAsync(
+            this.vehicle_facade.getVehicleIpvaBillAsync,
             req,
             res
         );
-    }
+    };
 }
 
-export default new VehicleController();
+export default VehicleController;

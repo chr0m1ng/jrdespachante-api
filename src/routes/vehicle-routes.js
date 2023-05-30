@@ -1,10 +1,11 @@
 import { constants } from 'http2';
-import Route from '../models/route';
-import vehicleController from '../controllers/vehicle-controller';
+import Route from '../models/route.js';
+import vehicleController from '../controllers/vehicle-controller.js';
 import {
     plate_query_schema,
     registration_query_schema
-} from '../validators/vehicle-validators';
+} from '../validators/vehicle-validators.js';
+import { provider_headers_schema } from '../validators/auth-validators.js';
 
 const routes = [];
 
@@ -27,6 +28,16 @@ const routes = [];
  *       type: boolean
  *       description: "The plate to lookup"
  *       required: false
+ *     - in: "header"
+ *       name: "provider"
+ *       type: string
+ *       description: "The provider name"
+ *       required: true
+ *     - in: "header"
+ *       name: "provider_id"
+ *       type: string
+ *       description: "The user provider id"
+ *       required: true
  *     responses:
  *       200:
  *         description: "Ok"
@@ -39,8 +50,9 @@ routes.push(
     new Route(
         '/vehicle/registration',
         constants.HTTP2_METHOD_GET,
-        vehicleController.getVehicleRegistrationAsync,
-        { query: registration_query_schema }
+        vehicleController,
+        'getVehicleRegistrationAsync',
+        { query: registration_query_schema, headers: provider_headers_schema }
     )
 );
 
@@ -57,6 +69,16 @@ routes.push(
  *       name: "plate"
  *       description: "The plate to lookup"
  *       required: true
+ *     - in: "header"
+ *       name: "provider"
+ *       type: string
+ *       description: "The provider name"
+ *       required: true
+ *     - in: "header"
+ *       name: "provider_id"
+ *       type: string
+ *       description: "The user provider id"
+ *       required: true
  *     responses:
  *       200:
  *         description: "Ok"
@@ -69,8 +91,9 @@ routes.push(
     new Route(
         '/vehicle/traffic-tickets',
         constants.HTTP2_METHOD_GET,
-        vehicleController.getVehicleTrafficTicketsAsync,
-        { query: plate_query_schema }
+        vehicleController,
+        'getVehicleTrafficTicketsAsync',
+        { query: plate_query_schema, headers: provider_headers_schema }
     )
 );
 
@@ -87,6 +110,16 @@ routes.push(
  *       name: "plate"
  *       description: "The plate to lookup"
  *       required: true
+ *     - in: "header"
+ *       name: "provider"
+ *       type: string
+ *       description: "The provider name"
+ *       required: true
+ *     - in: "header"
+ *       name: "provider_id"
+ *       type: string
+ *       description: "The user provider id"
+ *       required: true
  *     responses:
  *       200:
  *         description: "Ok"
@@ -99,8 +132,9 @@ routes.push(
     new Route(
         '/vehicle/ipva',
         constants.HTTP2_METHOD_GET,
-        vehicleController.getVehicleIpvaBillAsync,
-        { query: plate_query_schema }
+        vehicleController,
+        'getVehicleIpvaBillAsync',
+        { query: plate_query_schema, headers: provider_headers_schema }
     )
 );
 

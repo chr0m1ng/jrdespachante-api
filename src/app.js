@@ -6,24 +6,23 @@ import express from 'express';
 import 'express-async-errors';
 
 import timeout from 'connect-timeout';
-import package_info from '../package.json';
-import config from './appsettings.json';
-import router from './routes';
-import logger from './providers/logger-provider';
-import database from './providers/database-provider';
-import resBodyMiddleware from './middlewares/res-body-middleware';
-import errorMiddleware from './middlewares/error-middleware';
-import validatorMiddleware from './middlewares/validator-middleware';
+import package_info from '../package.json' assert { type: 'json' };
+import app_settings from './appsettings.json' assert { type: 'json' };
+import routerBuilderAsync from './routes/index.js';
+import LoggerProvider from './providers/logger-provider.js';
+import DatabaseProvider from './providers/database-provider.js';
+import resBodyMiddleware from './middlewares/res-body-middleware.js';
+import errorMiddleware from './middlewares/error-middleware.js';
+import validatorMiddleware from './middlewares/validator-middleware.js';
+import buildAuthMiddleware from './middlewares/auth-middleware.js';
 
 import {
     requestLogger,
     responseLogger,
     shouldNotLogPath
-} from './middlewares/logger-middleware';
+} from './middlewares/logger-middleware.js';
 
-const ROUTES_PATH = process.env.IS_PRODUCTION
-    ? 'C:\\home\\site\\wwwroot\\src\\routes\\*.js'
-    : './src/routes/*.js';
+const ROUTES_PATH = './src/routes/*.js';
 const DEFAULT_PORT = 3333;
 const PORT = process.env.PORT || DEFAULT_PORT;
 const ETAG = 'etag';
@@ -33,21 +32,21 @@ class App {
         this.app = express();
     }
 
-    async build() {
+    buildAsync = async () => {
         this.setupLogger();
         await this.setupDatabaseAsync();
         this.setupPreRoutesMiddlewares();
-        this.setupRoutes();
+        await this.setupRoutesAsync();
         this.setupPosRoutesMiddlewares();
-    }
+    };
 
-    start() {
+    start = () => {
         this.app.listen(PORT, () => {
             this.logger.info(`server listening on port: ${PORT}`);
         });
-    }
+    };
 
-    setupPreRoutesMiddlewares() {
+    setupPreRoutesMiddlewares = () => {
         this.app.disable(ETAG);
         this.app.use(timeout('5s'));
         this.app.use(express.json());
@@ -55,50 +54,73 @@ class App {
         this.app.use(requestLogger.unless(shouldNotLogPath));
         this.app.use(responseLogger.unless(shouldNotLogPath));
         this.app.use(validatorMiddleware);
-    }
+        this.app.use(buildAuthMiddleware(this.database));
+    };
 
-    setupPosRoutesMiddlewares() {
+    setupPosRoutesMiddlewares = () => {
         this.setupSwagger();
         this.app.use(errorMiddleware);
         this.app.set('trust proxy', 1);
-    }
+    };
 
-    setupSwagger() {
+    setupSwagger = () => {
         const options = {
             swaggerDefinition: {
+                openapi: '3.0.0',
                 info: {
                     title: package_info.name,
                     version: package_info.version,
                     description: package_info.description
                 },
-                basePath: config.api.base_path
+                servers: [{ url: app_settings.api.base_path }],
+                components: {
+                    securitySchemes: {
+                        apiKeyAuth: {
+                            type: 'apiKey',
+                            in: 'header',
+                            name: 'X-API-KEY'
+                        }
+                    }
+                },
+                security: [
+                    {
+                        apiKeyAuth: []
+                    }
+                ]
             },
             apis: [ROUTES_PATH]
         };
         const specs = swaggerJsDoc(options);
         this.app.use(
-            config.api.swagger_path,
+            app_settings.api.swagger_path,
             swagger_ui.serve,
             swagger_ui.setup(specs)
         );
-    }
+    };
 
-    async setupDatabaseAsync() {
-        this.database = await database.getDatabaseAsync();
-    }
+    setupDatabaseAsync = async () => {
+        this.database_provider = new DatabaseProvider();
+        this.database = await this.database_provider.getDatabaseAsync();
+    };
 
-    setupRoutes() {
-        this.app.use(config.api.base_path, router);
-    }
+    setupRoutesAsync = async () => {
+        const singletons = {
+            database: this.database
+        };
+        this.app.use(
+            app_settings.api.base_path,
+            await routerBuilderAsync(singletons)
+        );
+    };
 
-    setupLogger() {
-        this.logger = logger;
-    }
+    setupLogger = () => {
+        this.logger = new LoggerProvider().getLogger();
+    };
 
-    async stopApp() {
+    stopAppAsync = async () => {
         this.logger.info('Stoping the server');
-        await database.closeDatabaseAsync();
-    }
+        await this.database_provider.closeDatabaseAsync();
+    };
 }
 
 export default App;

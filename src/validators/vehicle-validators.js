@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import * as yup from 'yup';
 
 const plate_query_schema = yup.object().shape({

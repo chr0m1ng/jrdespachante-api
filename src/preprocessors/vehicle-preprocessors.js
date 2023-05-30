@@ -1,8 +1,12 @@
-const platePreprocessor = (plate) =>
-    plate
-        .replace('-', '')
-        .replace(' ', '')
-        .toUpperCase();
+class VehiclePreProcessors {
+    /**
+     * Plate preprocessor cleanup
+     * @param {string} plate
+     * @returns plate
+     */
+    static platePreprocessor = (plate) => {
+        return plate.replace('-', '').replace(' ', '').toUpperCase();
+    };
+}
 
-// eslint-disable-next-line import/prefer-default-export
-export { platePreprocessor };
+export default VehiclePreProcessors;

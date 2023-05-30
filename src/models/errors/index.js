@@ -1,4 +1,5 @@
-import BadRequestError from './bad-request-error';
-import NoContentError from './no-content-error';
+import BadRequestError from './bad-request-error.js';
+import NoContentError from './no-content-error.js';
+import UnauthorizedError from './unauthorized-error.js';
 
-export { BadRequestError, NoContentError };
+export { BadRequestError, NoContentError, UnauthorizedError };

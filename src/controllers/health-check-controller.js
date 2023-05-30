@@ -1,7 +1,7 @@
 class HealthCheckController {
-    ping(_, res) {
+    ping = (_, res) => {
         return res.send('Pong');
-    }
+    };
 }
 
-export default new HealthCheckController();
+export default HealthCheckController;

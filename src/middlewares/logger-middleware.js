@@ -1,5 +1,7 @@
-import unless from 'express-unless';
-import logger from '../providers/logger-provider';
+import { unless } from 'express-unless';
+import LoggerProvider from '../providers/logger-provider.js';
+
+const logger = new LoggerProvider().getLogger();
 
 const UNLESS_PATHS = ['.js', '.css', '.html', '.png', 'swagger'];
 

@@ -1,6 +1,6 @@
 import { constants } from 'http2';
-import Route from '../models/route';
-import healthCheckController from '../controllers/health-check-controller';
+import Route from '../models/route.js';
+import healthCheckController from '../controllers/health-check-controller.js';
 
 const routes = [];
 
@@ -17,7 +17,12 @@ const routes = [];
  *         description: "Ok"
  */
 routes.push(
-    new Route('/ping', constants.HTTP2_METHOD_GET, healthCheckController.ping)
+    new Route(
+        '/ping',
+        constants.HTTP2_METHOD_GET,
+        healthCheckController,
+        'ping'
+    )
 );
 
 export default routes;

@@ -1,4 +1,5 @@
-/* eslint-disable no-global-assign */
+import App from './app.js';
 
-require = require('esm')(module);
-module.exports = require('./server');
+const app = new App();
+await app.buildAsync();
+app.start();

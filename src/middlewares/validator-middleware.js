@@ -1,11 +1,11 @@
-import { BadRequestError } from '../models/errors';
-import getRoutes from '../routes/routes';
-import config from '../appsettings.json';
+import { BadRequestError } from '../models/errors/index.js';
+import getRoutesAsync from '../routes/routes.js';
+import config from '../appsettings.json' assert { type: 'json' };
 
-const routes = getRoutes();
+const ROUTES = await getRoutesAsync();
 
 const getRoute = (path, method) => {
-    return routes.find(
+    return ROUTES.find(
         (r) =>
             `${config.api.base_path}${r.path}` === path &&
             r.method === method.toLowerCase()
@@ -20,7 +20,7 @@ const getValidator = (path, method) => {
     return null;
 };
 
-const validateReqBody = (req, _, next) => {
+const validateReqParams = (req, _, next) => {
     const validator = getValidator(req.path, req.method);
     if (validator !== null) {
         Object.entries(validator).forEach(([location, schema]) => {
@@ -34,4 +34,4 @@ const validateReqBody = (req, _, next) => {
     return next();
 };
 
-export default validateReqBody;
+export default validateReqParams;

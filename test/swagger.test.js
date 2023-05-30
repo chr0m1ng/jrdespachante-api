@@ -1,26 +1,23 @@
-const { OK } = require('http-status-codes');
-const request = require('supertest');
-const App = require('../src/app');
-const config = require('../src/config');
+import { StatusCodes } from 'http-status-codes';
+import request from 'supertest';
+import App from '../src/app.js';
+import app_settings from '../src/appsettings.json';
 
-const server = new App();
-let express_app = null;
+const SERVER = new App();
+let EXPRESS_APP = null;
 
 describe('Test the swagger path', () => {
-    beforeAll(async (done) => {
-        await server.build();
-        express_app = server.app;
-        done();
+    beforeAll(async () => {
+        await SERVER.buildAsync();
+        EXPRESS_APP = SERVER.app;
     });
-    test('It should response with 200 the GET method', async (done) => {
-        const response = await request(express_app).get(
-            config.api.swagger_path
+    test('It should response with 200 the GET method', async () => {
+        const response = await request(EXPRESS_APP).get(
+            app_settings.api.swagger_path
         );
-        expect(response.statusCode).toBe(OK);
-        done();
+        expect(response.statusCode).toBe(StatusCodes.OK);
     });
-    afterAll(async (done) => {
-        await server.stopApp();
-        done();
+    afterAll(async () => {
+        await SERVER.stopAppAsync();
     });
 });

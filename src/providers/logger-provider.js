@@ -1,8 +1,10 @@
 import bunyan from 'bunyan';
-import { createStream } from 'bunyan-seq';
-import package_info from '../../package.json';
-import { seq } from '../appsettings.json';
+import bunyan_seq from 'bunyan-seq';
+import package_info from '../../package.json' assert { type: 'json' };
+import app_settings from '../appsettings.json' assert { type: 'json' };
 
+const { createStream } = bunyan_seq;
+const { seq } = app_settings;
 let instance = null;
 
 class LoggerProvider {
@@ -10,36 +12,39 @@ class LoggerProvider {
         if (!instance) {
             instance = this;
         }
-        return instance;
     }
 
-    _setupLogger() {
-        const logger = bunyan.createLogger({
-            name: package_info.name,
-            streams: [
-                {
-                    stream: process.stdout,
-                    level: bunyan.INFO
-                },
+    _setupLogger = () => {
+        const streams = [
+            {
+                stream: process.stdout,
+                level: bunyan.TRACE
+            }
+        ];
+        if (seq.server_url && seq.api_key) {
+            streams.push(
                 createStream({
                     serverUrl: seq.server_url,
                     apiKey: seq.api_key,
-                    level: bunyan.INFO
+                    level: bunyan.TRACE
                 })
-            ],
+            );
+        }
+        const logger = bunyan.createLogger({
+            name: package_info.name,
+            streams,
             Application: package_info.name
         });
 
         this.logger = logger;
-    }
+    };
 
-    getLogger() {
+    getLogger = () => {
         if (!this.logger) {
-            // eslint-disable-next-line no-underscore-dangle
             this._setupLogger();
         }
         return this.logger;
-    }
+    };
 }
 
-export default new LoggerProvider().getLogger();
+export default LoggerProvider;

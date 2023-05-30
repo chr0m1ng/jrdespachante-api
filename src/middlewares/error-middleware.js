@@ -1,5 +1,7 @@
-import { INTERNAL_SERVER_ERROR } from 'http-status-codes';
-import logger from '../providers/logger-provider';
+import { StatusCodes } from 'http-status-codes';
+import LoggerProvider from '../providers/logger-provider.js';
+
+const logger = new LoggerProvider().getLogger();
 
 const logError = (err, req, res) => {
     const log_res = {
@@ -34,7 +36,7 @@ const handleError = (err) => {
     }
     return {
         ...err,
-        status: INTERNAL_SERVER_ERROR
+        status: StatusCodes.INTERNAL_SERVER_ERROR
     };
 };
 

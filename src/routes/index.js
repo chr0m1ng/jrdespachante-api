@@ -1,11 +1,40 @@
+/* eslint-disable new-cap */
 import { Router } from 'express';
-import getRoutes from './routes';
+import getRoutesAsync from './routes.js';
+import ClassHelpers from '../helpers/class-helpers.js';
+import DictHelpers from '../helpers/dict-helpers.js';
 
-const router = Router();
-const routes = getRoutes();
+/**
+ * Build router routes
+ * @param {Record<string, Object>} singletons
+ */
+const routerBuilderAsync = async (singletons = {}) => {
+    const router = Router();
+    const routes = await getRoutesAsync();
+    routes.forEach((route) => {
+        const controller_params = ClassHelpers.getClassConstructorParameters(
+            route.controller
+        );
+        const requested_singletons = DictHelpers.getDictValuesFromKeys(
+            singletons,
+            controller_params
+        );
+        if (requested_singletons.some((rs) => !rs)) {
+            throw new Error(
+                `Missing one or more singletons for controller ${route.controller.name}`
+            );
+        }
 
-routes.forEach((route) => {
-    router[route.method](route.path, route.middlewares, route.controller);
-});
+        router[route.method](
+            route.path,
+            route.middlewares,
+            new route.controller(...requested_singletons)[
+                route.controller_method
+            ]
+        );
+    });
 
-export default router;
+    return router;
+};
+
+export default routerBuilderAsync;

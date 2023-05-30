@@ -1,9 +1,9 @@
-import { BAD_REQUEST } from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 
 class BadRequestError extends Error {
     constructor(message) {
         super(message);
-        this.status = BAD_REQUEST;
+        this.status = StatusCodes.BAD_REQUEST;
     }
 }
 
