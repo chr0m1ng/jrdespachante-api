@@ -1,4 +1,5 @@
-// eslint-disable-next-line import/no-mutable-exports
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/no-mutable-exports */
 let { default: app_settings } = await import('./app_settings.json', {
     assert: { type: 'json' }
 });
