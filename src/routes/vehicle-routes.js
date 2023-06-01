@@ -14,7 +14,7 @@ const routes = [];
  *   get:
  *     tags:
  *     - "vehicle"
- *     summary: "Get a vehicle registration bill"
+ *     summary: "Get vehicle registration bill"
  *     description: "Get the given vehicle registration full bill"
  *     parameters:
  *     - in: "query"
@@ -61,7 +61,7 @@ routes.push(
  *   get:
  *     tags:
  *     - "vehicle"
- *     summary: "Get a vehicle traffic tickets"
+ *     summary: "Get vehicle traffic tickets"
  *     description: "Get the given vehicle traffic tickets"
  *     parameters:
  *     - in: "query"
@@ -102,7 +102,7 @@ routes.push(
  *   get:
  *     tags:
  *     - "vehicle"
- *     summary: "Get a vehicle ipva bill"
+ *     summary: "Get vehicle ipva bill"
  *     description: "Get the given vehicle ipva bill"
  *     parameters:
  *     - in: "query"
