@@ -1,0 +1,20 @@
+{
+    "seq": {
+        "server_url": null,
+        "api_key": null
+    },
+    "api": {
+        "base_path": "/api/v1",
+        "swagger_path": "/",
+        "auth_key": "<x-api-key>"
+    },
+    "database": {
+        "mongo": {
+            "connection_string": "mongodb+srv://<username>:<password>@<server>",
+            "database": "<database>"
+        }
+    },
+    "detran": {
+        "base_url": "http://licenciamento.ba.gov.br/sli"
+    }
+}
