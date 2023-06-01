@@ -3,11 +3,14 @@ let { default: app_settings } = await import('./app_settings.json', {
     assert: { type: 'json' }
 });
 
-if (process.env.ENVIRONMENT !== 'production') {
-    app_settings = await import('./app_settings.dev.json', {
+if (process.env.NODE_ENV === 'test') {
+    const { default: test_settings } = await import('./app_settings.jest.js');
+    app_settings = test_settings;
+} else if (process.env.NODE_ENV !== 'production') {
+    const { default: dev_settings } = await import('./app_settings.dev.json', {
         assert: { type: 'json' }
     });
-    app_settings = app_settings.default;
+    app_settings = dev_settings;
 }
 
 export default app_settings;
