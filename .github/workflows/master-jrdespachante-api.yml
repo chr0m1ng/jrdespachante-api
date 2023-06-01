@@ -24,3 +24,5 @@ jobs:
             - name: Tests
               run: |
                   yarn test
+              env:
+                  NODE_ENV: test
