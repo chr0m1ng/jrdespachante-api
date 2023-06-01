@@ -4,7 +4,7 @@ class VehiclePreProcessors {
      * @param {string} plate
      * @returns plate
      */
-    static platePreprocessor = (plate) => {
+    static clearPlate = (plate) => {
         return plate.replace('-', '').replace(' ', '').toUpperCase();
     };
 }

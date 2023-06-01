@@ -3,23 +3,35 @@ import { Db } from 'mongodb';
 import VehicleFacade from '../facades/vehicle-facade.js';
 import UserFacade from '../facades/user-facade.js';
 import VehiclePreProcessors from '../preprocessors/vehicle-preprocessors.js';
+import BaseApiController from './base-api-controller.js';
+import buildProviderAuthMiddleware from '../middlewares/provider-auth-middleware.js';
+import { provider_headers_schema } from '../validators/auth-validators.js';
 
-class VehicleController {
+class VehicleController extends BaseApiController {
     /**
      * Vehicle Controller
      * @param {Db} database
      */
     constructor(database) {
+        super();
         this.database = database;
         this.user_facade = new UserFacade(database);
         this.vehicle_facade = new VehicleFacade();
+    }
+
+    get middlewares() {
+        return [buildProviderAuthMiddleware(this.database)];
+    }
+
+    get validator() {
+        return { headers: provider_headers_schema };
     }
 
     execMethodWithPlateAuthAsync = async (methodAsync, req, res) => {
         const { provider, provider_id } = req.headers;
 
         const { plate } = req.query;
-        const clean_plate = VehiclePreProcessors.platePreprocessor(plate);
+        const clean_plate = VehiclePreProcessors.clearPlate(plate);
 
         await this.user_facade.addUserPlateHistoryAsync(
             provider,

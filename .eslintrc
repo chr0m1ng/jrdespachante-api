@@ -39,5 +39,6 @@
         "import/extensions": "off",
         "no-plusplus": "off",
         "no-promise-executor-return": "off",
+        "no-param-reassign": "off"
     }
 }

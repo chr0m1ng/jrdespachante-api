@@ -5,7 +5,6 @@ import {
     plate_query_schema,
     registration_query_schema
 } from '../validators/vehicle-validators.js';
-import { provider_headers_schema } from '../validators/auth-validators.js';
 
 const routes = [];
 
@@ -52,7 +51,7 @@ routes.push(
         constants.HTTP2_METHOD_GET,
         vehicleController,
         'getVehicleRegistrationAsync',
-        { query: registration_query_schema, headers: provider_headers_schema }
+        { query: registration_query_schema }
     )
 );
 
@@ -93,7 +92,7 @@ routes.push(
         constants.HTTP2_METHOD_GET,
         vehicleController,
         'getVehicleTrafficTicketsAsync',
-        { query: plate_query_schema, headers: provider_headers_schema }
+        { query: plate_query_schema }
     )
 );
 
@@ -134,7 +133,7 @@ routes.push(
         constants.HTTP2_METHOD_GET,
         vehicleController,
         'getVehicleIpvaBillAsync',
-        { query: plate_query_schema, headers: provider_headers_schema }
+        { query: plate_query_schema }
     )
 );
 

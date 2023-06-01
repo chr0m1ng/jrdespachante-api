@@ -14,7 +14,7 @@ import DatabaseProvider from './providers/database-provider.js';
 import resBodyMiddleware from './middlewares/res-body-middleware.js';
 import errorMiddleware from './middlewares/error-middleware.js';
 import validatorMiddleware from './middlewares/validator-middleware.js';
-import buildAuthMiddleware from './middlewares/auth-middleware.js';
+import authMiddleware from './middlewares/auth-middleware.js';
 
 import {
     requestLogger,
@@ -30,6 +30,8 @@ const ETAG = 'etag';
 class App {
     constructor() {
         this.app = express();
+        // this will be populated early in routerBuilderAsync
+        this.api_routes = [];
     }
 
     buildAsync = async () => {
@@ -54,7 +56,7 @@ class App {
         this.app.use(requestLogger.unless(shouldNotLogPath));
         this.app.use(responseLogger.unless(shouldNotLogPath));
         this.app.use(validatorMiddleware);
-        this.app.use(buildAuthMiddleware(this.database));
+        this.app.use(authMiddleware);
     };
 
     setupPosRoutesMiddlewares = () => {

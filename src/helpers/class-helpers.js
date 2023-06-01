@@ -9,7 +9,10 @@ class ClassHelpers {
     static getClassConstructorParameters = (klass) => {
         const class_text = `${klass}`.replace(/\s/g, '');
         const arguments_text = class_text.match(CONSTRUCTOR_LOOKUP_REGEX);
-        if (!arguments_text) {
+        if (
+            !arguments_text ||
+            (arguments_text.length === 1 && arguments_text[0] === '')
+        ) {
             return [];
         }
         return arguments_text.pop().split(',');

@@ -5,15 +5,9 @@ import config from '../app-settings.js';
 const MAX_CONNECTION_RETRIES = 10;
 const RETRY_DELAY = 1000;
 
-let instance = null;
-
 class DatabaseProvider {
     constructor() {
         this.connection_retries = 0;
-
-        if (!instance) {
-            instance = this;
-        }
     }
 
     _setupDatabaseAsync = async () => {
@@ -47,7 +41,6 @@ class DatabaseProvider {
     };
 
     closeDatabaseAsync = async () => {
-        console.log('closing');
         await this.client.close();
     };
 }
