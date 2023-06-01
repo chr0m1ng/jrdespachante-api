@@ -14,6 +14,7 @@ const routes = [];
  *     summary: "Sign up a new user"
  *     description: "Sign up a new user"
  *     requestBody:
+ *       required: true
  *       description: "Create a new user"
  *       content:
  *         application/json:
@@ -40,6 +41,39 @@ routes.push(
         UserController,
         'signUpAsync',
         { body: create_user_body_schema }
+    )
+);
+
+/**
+ *  @swagger
+ * /sign-in:
+ *   get:
+ *     tags:
+ *     - "user"
+ *     summary: "Sign in an user"
+ *     description: "Sign in an user"
+ *     parameters:
+ *     - in: "header"
+ *       name: "provider"
+ *       type: string
+ *       description: "The provider name"
+ *       required: true
+ *     - in: "header"
+ *       name: "provider_id"
+ *       type: string
+ *       description: "The user provider id"
+ *       required: true
+ *     responses:
+ *       200:
+ *         description: "User found"
+ */
+routes.push(
+    new Route(
+        '/sign-in',
+        constants.HTTP2_METHOD_GET,
+        UserController,
+        'signInAsync',
+        { headers: create_user_body_schema }
     )
 );
 

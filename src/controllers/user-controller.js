@@ -21,6 +21,17 @@ class UserController extends BaseApiController {
 
         return res.status(StatusCodes.CREATED).json(user);
     };
+
+    signInAsync = async (req, res) => {
+        const { provider, provider_id } = req.headers;
+
+        const user = await this.user_facade.getUserByProviderAsync(
+            provider,
+            provider_id
+        );
+
+        return res.status(StatusCodes.OK).json(user);
+    };
 }
 
 export default UserController;
