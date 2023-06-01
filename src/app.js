@@ -32,6 +32,7 @@ class App {
         this.app = express();
         // this will be populated early in routerBuilderAsync
         this.api_routes = [];
+        global.APP = this;
     }
 
     buildAsync = async () => {
