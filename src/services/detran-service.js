@@ -1,6 +1,6 @@
 import axios from 'axios';
 import qs from 'querystring';
-import app_settings from '../appsettings.json' assert { type: 'json' };
+import app_settings from '../app-settings.js';
 import { NoContentError } from '../models/errors/index.js';
 
 const { detran } = app_settings;

@@ -1,7 +1,7 @@
 import bunyan from 'bunyan';
 import bunyan_seq from 'bunyan-seq';
 import package_info from '../../package.json' assert { type: 'json' };
-import app_settings from '../appsettings.json' assert { type: 'json' };
+import app_settings from '../app-settings.js';
 
 const { createStream } = bunyan_seq;
 const { seq } = app_settings;

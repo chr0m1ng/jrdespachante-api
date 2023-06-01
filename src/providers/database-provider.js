@@ -1,6 +1,6 @@
 import { MongoClient, ServerApiVersion } from 'mongodb';
 import TimeHelpers from '../helpers/time-helpers.js';
-import config from '../appsettings.json' assert { type: 'json' };
+import config from '../app-settings.js';
 
 const MAX_CONNECTION_RETRIES = 10;
 const RETRY_DELAY = 1000;

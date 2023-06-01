@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import request from 'supertest';
 import App from '../src/app.js';
-import app_settings from '../src/appsettings.json';
+import app_settings from '../src/app-settings.json';
 
 const { base_path, auth_key } = app_settings.api;
 const HEALTH_CHECK_PATH = `${base_path}/ping`;

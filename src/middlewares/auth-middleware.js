@@ -2,7 +2,7 @@
 import { Db } from 'mongodb';
 import { UnauthorizedError } from '../models/errors/index.js';
 import UserFacade from '../facades/user-facade.js';
-import app_settings from '../appsettings.json' assert { type: 'json' };
+import app_settings from '../app-settings.js';
 
 const { base_path: API_BASE_PATH, auth_key: API_AUTH_KEY } = app_settings.api;
 

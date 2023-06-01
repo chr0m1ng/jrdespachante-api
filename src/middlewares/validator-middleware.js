@@ -1,6 +1,6 @@
 import { BadRequestError } from '../models/errors/index.js';
 import getRoutesAsync from '../routes/routes.js';
-import config from '../appsettings.json' assert { type: 'json' };
+import config from '../app-settings.js';
 
 const ROUTES = await getRoutesAsync();
 

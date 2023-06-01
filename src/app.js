@@ -7,7 +7,7 @@ import 'express-async-errors';
 
 import timeout from 'connect-timeout';
 import package_info from '../package.json' assert { type: 'json' };
-import app_settings from './appsettings.json' assert { type: 'json' };
+import app_settings from './app-settings.js';
 import routerBuilderAsync from './routes/index.js';
 import LoggerProvider from './providers/logger-provider.js';
 import DatabaseProvider from './providers/database-provider.js';
