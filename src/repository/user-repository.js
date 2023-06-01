@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { Db } from 'mongodb';
+import { Db, ObjectId } from 'mongodb';
 
 class UserRepository {
     /**
@@ -11,15 +11,25 @@ class UserRepository {
     }
 
     /**
+     * Get an User by id
+     * @param {ObjectId} user_id
+     * @returns User
+     */
+    getUserByIdAsync = async (user_id) => {
+        return this.Users.findOne({ _id: user_id });
+    };
+
+    /**
      * Create new user with provider data
      * @param {string} provider
      * @param {string} provider_id
-     * @returns User
+     * @returns {ObjectId} user_id
      */
     createUserAsync = async (provider, provider_id) => {
-        return this.Users.insertOne({
+        const { insertedId: id } = await this.Users.insertOne({
             providers: [{ provider, provider_id }]
         });
+        return id;
     };
 
     /**

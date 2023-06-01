@@ -35,7 +35,11 @@ class UserFacade {
         if (user) {
             return null;
         }
-        return this.user_repository.createUserAsync(provider, provider_id);
+        const user_id = await this.user_repository.createUserAsync(
+            provider,
+            provider_id
+        );
+        return this.user_repository.getUserByIdAsync(user_id);
     };
 
     /**
