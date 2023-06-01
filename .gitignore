@@ -88,3 +88,6 @@ typings/
 .yo-rc.json
 
 .vscode
+
+# Dev files
+*.dev.*
