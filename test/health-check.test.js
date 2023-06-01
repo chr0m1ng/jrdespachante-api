@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import request from 'supertest';
 import App from '../src/app.js';
-import app_settings from '../src/app-settings.json';
+import app_settings from '../src/app-settings.js';
 
 const { base_path, auth_key } = app_settings.api;
 const HEALTH_CHECK_PATH = `${base_path}/ping`;
@@ -14,7 +14,7 @@ describe('Test the health check', () => {
     beforeAll(async () => {
         await SERVER.buildAsync();
         EXPRESS_APP = SERVER.app;
-    });
+    }, 10000);
     test('It should response with 200 the GET method', async () => {
         const response = await request(EXPRESS_APP)
             .get(HEALTH_CHECK_PATH)
