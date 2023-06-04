@@ -7,7 +7,7 @@ const routes = [];
 
 /**
  *  @swagger
- * /sign-up:
+ * /user/sign-up:
  *   post:
  *     tags:
  *     - "user"
@@ -36,7 +36,7 @@ const routes = [];
  */
 routes.push(
     new Route(
-        '/sign-up',
+        '/user/sign-up',
         constants.HTTP2_METHOD_POST,
         UserController,
         'signUpAsync',
@@ -46,7 +46,7 @@ routes.push(
 
 /**
  *  @swagger
- * /sign-in:
+ * /user/sign-in:
  *   get:
  *     tags:
  *     - "user"
@@ -69,7 +69,7 @@ routes.push(
  */
 routes.push(
     new Route(
-        '/sign-in',
+        '/user/sign-in',
         constants.HTTP2_METHOD_GET,
         UserController,
         'signInAsync',
